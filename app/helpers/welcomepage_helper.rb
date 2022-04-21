@@ -1,0 +1,2 @@
+module WelcomepageHelper
+end

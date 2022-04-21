@@ -8,5 +8,6 @@ class User < ApplicationRecord
   has_one :carts
   has_many :products
   has_many :comments
-  
+
+  has_one_attached :photo, dependent: :destroy
 end
