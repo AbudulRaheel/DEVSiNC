@@ -1,0 +1,49 @@
+<h4> Edit your product<h4>
+
+<%= form_with model: @product do |f| %>
+  
+
+  <% if @product.images.attached?%>
+      <% @product.images.each do |img| %>
+        <%= image_tag img, style: "width: 100px;"%>
+      <% end %>
+    <% else %>
+      <p> No Image</p>
+    <% end%>
+
+    
+     <div class="field">
+            <%= f.label :Photo %><br />
+                <%= f.file_field :images , :multiple => true %>
+        </div>
+  <div class="field">
+    <%= f.label :Name %><br />
+    <%= f.text_field :product_name %>
+  </div>
+  <div class="field">
+    <%= f.label :Description %><br />
+    <%= f.text_field :descriptio %>
+  </div>
+ <div class="field">
+    <%= f.label :Quantity %><br />
+    <%= f.text_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :Price %><br />
+    <%= f.text_field :price %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+
+<%
+=begin%>
+ 
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p> 
+<%
+=end%>
+
+<%= link_to "Back", :back %>

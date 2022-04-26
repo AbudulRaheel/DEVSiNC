@@ -1,0 +1,11 @@
+<h1>User Profile</h1>
+<div class="column">
+    <div class="card">
+   <%= image_tag(@user.photo) %>
+         <div class="container">
+                <h4>Name: <%= @user.full_name %></h4>
+                <h4>Email: <%= @user.email %></h4>
+                <h4>Phone: <%= @user.phone%></h4>
+      </div>   
+    </div>
+</div>

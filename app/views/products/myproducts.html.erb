@@ -1,0 +1,38 @@
+<div class='text-center'>
+  <h4>My Products</h4>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Serial number</th>
+        <th>Product name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>...</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (!@products.blank?) %>
+        <% for item in @products %>
+          <% if item.user== current_user%>
+            <tr>
+              <td><%= item.uuid%></td>
+              <td><%= item.product_name%></td>
+              <td><%= item.descriptio%></td>
+              <td><%= item.quantity%></td>
+              <td><%= item.price%> $</td>
+              <td>
+                <div class="row">
+                  <%= button_to "Update", edit_product_path(item) ,method: :get %>
+                  <%=  button_to "Remove", product_path(item) ,method: :delete %>
+                  <%=  button_to "View details", products_path,params:{id: item.id},method: :get%>
+                  <%# viewproducts_path,params:{id: item.id} %>
+                </div>
+              </td>
+            </tr>
+          <%end%>
+        <%end%>
+      <%else%>
+      <%end%>
+    </tbody>
+  </table>

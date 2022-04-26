@@ -17,9 +17,19 @@
                 <%= f.text_field :price, autofocus: true %>
         </div>
 
+          <div class="field">
+            <%= f.label :Quantity%><br />
+                <%= f.text_field :quantity, autofocus: true %>
+        </div>
+
         <div class="field">
             <%= f.label :Photo %><br />
                 <%= f.file_field :images , :multiple => true %>
+        </div>
+        <div class="field">
+            <%= f.number_field :user_id,
+            id: :product_user_id, class: "form-control", value: current_user.id , type: :hidden
+            %> 
         </div>
 
         <div class="actions">

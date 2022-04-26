@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <style>
+      body{margin-top:20px;}
+
+      .comment-wrapper .panel-body {
+        max-height:650px;
+        overflow:auto;
+      }
+
+      .comment-wrapper .media-list .media img {
+        width:64px;
+        height:64px;
+        border:2px solid #e5e7e8;
+      }
+
+      .comment-wrapper .media-list .media {
+        border-bottom:1px dashed #efefef;
+        margin-bottom:25px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id= "comment_form">
+      <div class="container">
+        <%= form_for @comment ,url: action_url , method: action_method , remote: true do |f| %>
+          <div class="form-group">
+            <div class="field">
+              <h4>Add comment</h4>
+              <br/>
+              <%= f.text_field :comment_text, autofocus: true %>
+            </div>
+          </div>
+          <div class="actions">
+            <%= f.submit "Post" %>
+          </div>
+        <%end%>
+      </div>
+    </div>
+  </body>
+</html>

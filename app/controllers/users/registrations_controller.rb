@@ -9,7 +9,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/sign_up
-  def index; end
+  def index
+    @user = Current.User
+  end
 
   def new
     super
@@ -28,6 +30,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     super
+    if @user.update(user_params)
+
+    else
+      render :edit
+    end
   end
 
   # DELETE /resource
@@ -45,6 +52,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   protected
+
+  def user_params
+    params.require(:user).permit(:full_name, :email, :phone, :photo)
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params

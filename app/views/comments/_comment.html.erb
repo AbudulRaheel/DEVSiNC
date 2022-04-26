@@ -1,0 +1,11 @@
+<li class="media">
+  <%= image_tag comment.user.photo, style: "width: 100px;"%>
+  <div class="media-body">
+    <strong class="text-success"><%=comment.user.full_name%></strong>
+    <p>
+      <%=comment.comment_text%>
+    </p>
+    <%= link_to "Edit", comment_path(comment)  %>
+    <%= link_to "Delete", comment_path(comment),method: :delete,data: { confirm: 'Are you sure?' }  %>
+  </div>
+</li>
