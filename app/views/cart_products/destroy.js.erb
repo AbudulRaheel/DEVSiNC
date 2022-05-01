@@ -1,0 +1,5 @@
+$(document).ready(function(){
+$("#cart-item-<%=@cart_item.id%>").hide();
+$("#cart-sub-total").html("$ <%= @cart_sub_total %>");
+$("#cart-total-partial").replaceWith(" <%= j render partial: "carts/cart_total", locals: {coupon: @coupon, cart_sub_total: @cart_sub_total }  %>");
+});

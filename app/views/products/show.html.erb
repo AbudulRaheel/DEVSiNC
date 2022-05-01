@@ -1,5 +1,8 @@
 <section style="background-color: #eee;">
   <div class="container py-5">
+    <div class="d-flex justify-content-between total font-weight-bold mt-4">
+      <span><%= link_to "Back", :back %></span>
+    </div>
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">
         <div class="card text-black">
@@ -33,16 +36,29 @@
               </div>
             </div>
             <p class="text-muted mb-4">Description: <%= @product.descriptio%></p>
-            <div class="d-flex justify-content-between total font-weight-bold mt-4">
-              <span></span><span><%= link_to "Back", :back %></span>
-            </div>
+            <% if policy(@product).update? %>
+              <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                <%=  button_to "Edit", edit_product_path(@product) ,method: :get%>
+                <%=  button_to "Delete", product_path(@product),method: :delete%>
+              </div>
+            <% else %>
+              <% if user_signed_in? %>
+                <%= button_to "Add To Cart", { action: "create", :controller=>"cart_products" },
+        remote: true,
+        params: {product_id: @product.id, quantity:1}
+        %>
+              <% end %>
+            <%end%>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </section>
-<%= render partial: "comments/comment_form" ,comment: @comment, locals:{action_url:product_comments_path(@product),button_text: "Post Comment",action_method: :post} %>
+<% unless policy(@product).update? %>
+  <%= render partial: "comments/comment_form" ,comment: @comment, locals:{action_url:product_comments_path(@product),button_text: "Post Comment",action_method: :post} %>
+<% end %>
 <div id="comment_pane">
   <% for comment in @comments%>
     <li class="media">
@@ -52,8 +68,10 @@
         <p>
           <%=comment.comment_text%>
         </p>
-        <%= link_to "Edit", edit_comment_path(comment), method: :get%>
-        <%= link_to "Delete", comment_path(comment), method: :delete  %>
+        <% if policy(comment).update? %>
+          <%= link_to "Edit", edit_comment_path(comment), method: :get%>
+          <%= link_to "Delete", comment_path(comment), method: :delete%>
+        <% end %>
       </div>
     </li>
     <%# <% render 'comments/comment', comment: comment%>

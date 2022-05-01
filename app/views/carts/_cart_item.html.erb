@@ -1,0 +1,38 @@
+<tr id="cart-item">
+  <td>
+    <figure class="itemside align-items-center">
+      <%= image_tag cart_item.product.images.first, style: "width: 200px;" %>
+      <figcaption class="info"> <a href="#" class="title text-dark" data-abc="true">
+          <%= cart_item.product.product_name%>
+        </a>
+        <p class="small text-muted">Description:<br>
+          <%= cart_item.product.descriptio%>
+        </p>
+      </figcaption>
+    </figure>
+  </td>
+  <td class="align-middle">
+    <div class="input-group quantity mx-auto" style="width: 100px;">
+      <%= button_to "-  " , cart_product_path(cart_item), class: 'btn btn-sm text-dark p-0' , remote: true,
+                method: "put" , params: {quantity:(cart_item.quantity-1)} %>
+      <h5 id="cart-item-quantity-<%=cart_item.id%>">
+        <%= cart_item.quantity%>
+      </h5>
+      <%= button_to "  +" , cart_product_path(cart_item), class: 'btn btn-sm text-dark p-0' , remote: true,
+                    method: "put" , params: {quantity:(cart_item.quantity+1)} %>
+    </div>
+  </td>
+  <td class="align-middle">
+    <div class="price-wrap">
+      <%= cart_item.product.price%> $
+    </div>
+  </td>
+  <td class="align-middle">
+    <h6 id="cart-item-total-<%=cart_item.id%>">
+      <%= cart_item.product.price.to_f * cart_item.quantity %> $
+    </h6>
+  </td>
+  <td class="align-middle">
+    <%= button_to"Remove", cart_product_path(cart_item), method: :delete, remote: true, data: { confirm: 'Are you sure?' } %>
+  </td>
+</tr>

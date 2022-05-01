@@ -2,7 +2,8 @@ class ProductsController < ApplicationController
   #   before_save :generate_serial_number
 
   before_action :set_product, only: %i[edit update destory]
-
+  before_action :authenticate_user!, except: %i[index show]
+  # before_action :authorization, only: %i[edit update destroy]
   def index
     @products = Product.all
   end
@@ -22,12 +23,15 @@ class ProductsController < ApplicationController
   end
 
   def update
+    respond_to do |format|
     if @product.update(product_params)
-      redirect_to product_path, notice: 'Product updated sucessfully'
-
-    else
-      render :edit
+        format.html { redirect_to myproducts_path, notice: 'Product was successfully updated.' }
+        # format.json { head :no_content }
+        # format.js
     end
+    end
+    #   render :edit
+    # end
   end
 
   def edit; end
@@ -35,16 +39,14 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find_by_id(params[:id])
 
-    @product.destroy
-
     respond_to do |format|
-      format.html { redirect_to myproducts_path, notice: 'Product was successfully deleted.' }
-      format.json { head :no_content }
-      format.js
-    end
+      if @product.destroy
 
-    # if @product.present?
-    # redirect_to product_path, notice: 'Product was deleted sucessfully'
+        format.html { redirect_to myproducts_path, notice: 'Product was successfully destroyed.' }
+      else
+        flash.alert = 'Error in deleting product'
+      end
+    end
   end
 
   def show
@@ -61,5 +63,9 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:product_name, :descriptio, :price, :quantity, images: [])
+  end
+
+  def authorization
+    authorize @product
   end
 end

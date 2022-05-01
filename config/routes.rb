@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
+  get 'cart/cart'
   get 'comments/comments'
+  get 'search', to: 'products#search'
+  post 'coupon', to: 'carts#coupon'
   resources :products do
     resources :comments, shallow: true
   end
+  resources :carts, only: %i[index update]
+  resources :cart_products, only: %i[create destroy edit update]
 
-  # get 'home', to: 'homepage#homepage'
-  # get 'welcomepage/index'
   get 'myproducts', to: 'products#myproducts'
-  # get 'viewproducts', to: 'products#viewproducts'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :users, only: [:show]

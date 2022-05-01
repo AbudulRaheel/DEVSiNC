@@ -1,0 +1,10 @@
+<div id="cart-total-partial">
+  <div class="d-flex justify-content-between mt-2">
+    <h5 class="font-weight-bold">Total</h5>
+    <% if coupon %>
+      <h5 class="font-weight-bold cart-total-with-discount">$ <%= cart_sub_total - (cart_sub_total * coupon.discount) %></h5>
+    <% else%>
+      <h5 class="font-weight-bold cart-total-with-discount">$ <%= cart_sub_total %></h5>
+    <% end %>
+  </div>
+</div>
