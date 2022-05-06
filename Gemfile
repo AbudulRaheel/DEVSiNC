@@ -72,4 +72,6 @@ group :development, :test do
   gem 'rubocop-rails'
 end
 
+gem 'activestorage-cloudinary-service'
+gem 'cloudinary', require: true
 gem 'stripe'
