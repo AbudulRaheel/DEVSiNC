@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CartProductsController
 class CartProductsController < ApplicationController
   include CartsHelper
   before_action :set_cart_item, only: %i[edit update destroy]
@@ -6,7 +9,6 @@ class CartProductsController < ApplicationController
     @cart_item = CartProduct.new(cart_product_params)
     @cart_item.cart_id = current_user.cart.id
     authorize @cart_item
-
     respond_to do |format|
       if @cart_item.save
         format.js { render js: 'alert("Item added to cart");' }
@@ -26,14 +28,14 @@ class CartProductsController < ApplicationController
   def edit; end
 
   def update
-    # @coupon = current_user.cart.coupon
+    @coupon = current_user.cart.coupon
     respond_to do |format|
-      if @cart_item.update(cart_product_params)     
+      if @cart_item.update(cart_product_params)
         @cart_sub_total = CartsHelper.calculate_cart_sub_total(current_user)
         format.js
       else
         format.js do
-          render js: 'alert("Error in updating cart_item\nShould not be greater than product.quantity\nGreater then 0");'
+          render js: 'alert("Error in updating cart_item\nShould not be greater than product.);'
         end
       end
     end

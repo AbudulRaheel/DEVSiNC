@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CommentsController
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[edit update destory]
 
@@ -11,7 +14,16 @@ class CommentsController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    respond_to do |format|
+      if @comment.update(comment_params)
+        redirect_to product_path(@comment.product)
+        format.js
+      else
+        format.js { render js: 'alert("Error in updating comment\nIt should be atleast 5 in length");' }
+      end
+    end
+  end
 
   def create
     @comment = Comment.new(comment_params)

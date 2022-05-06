@@ -1,3 +1,0 @@
-$(document).ready(function(){
-$("#comment_form").replaceWith(<%= j render partial: "comments/comment_form", comment: @comment,
-locals:{action_url:product_comments_path(@product),button_text: "Post Comment",action_method: :put} %>);});

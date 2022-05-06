@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ProductsController
 class ProductsController < ApplicationController
   #   before_save :generate_serial_number
 
@@ -24,11 +27,11 @@ class ProductsController < ApplicationController
 
   def update
     respond_to do |format|
-    if @product.update(product_params)
+      if @product.update(product_params)
         format.html { redirect_to myproducts_path, notice: 'Product was successfully updated.' }
         # format.json { head :no_content }
         # format.js
-    end
+      end
     end
     #   render :edit
     # end
@@ -53,6 +56,10 @@ class ProductsController < ApplicationController
     @product = Product.find_by_id(params[:id])
     @comment = Comment.new
     @comments = Comment.where(product_id: @product.id)
+  end
+
+  def search
+    @products = Product.where('product_name ILike ?', "%#{params[:q]}%")
   end
 
   private

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CartsHelper
 module CartsHelper
   def self.calculate_cart_sub_total(user)
     CartProduct.where(cart_id: user.cart.id)

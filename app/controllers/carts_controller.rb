@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CartsController
 class CartsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   include CartsHelper
@@ -25,15 +28,19 @@ class CartsController < ApplicationController
     @coupon = Coupon.find_by(code: params[:coupon])
     if @coupon && @coupon.expiry_date > Time.zone.today
       @cart_sub_total = CartsHelper.calculate_cart_sub_total(current_user)
-      respond_to do |format|
-        if current_user.cart.update(coupon_id: @coupon.id)
-          format.js
-        else
-          format.js { render js: 'alert("Invalid Coupon");' }
-        end
-      end
+      process_coupon @coupon
     else
       render js: "alert('No such Coupon exist')"
+    end
+  end
+
+  def process_coupon(coupon)
+    respond_to do |format|
+      if current_user.cart.update(coupon_id: coupon.id)
+        format.js
+      else
+        format.js { render js: 'alert("Invalid Coupon");' }
+      end
     end
   end
 

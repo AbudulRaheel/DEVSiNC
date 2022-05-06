@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# CreateTablecoupons
 class CreateTable < ActiveRecord::Migration[5.2]
   def change
     create_table :coupons do |t|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_01_115323) do
+ActiveRecord::Schema.define(version: 2022_05_02_102943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -78,9 +78,9 @@ ActiveRecord::Schema.define(version: 2022_05_01_115323) do
   end
 
   create_table "order_details", force: :cascade do |t|
-    t.integer "quantity", null: false
-    t.bigint "order_id", null: false
-    t.uuid "product_id", null: false
+    t.integer "quantity"
+    t.bigint "order_id"
+    t.bigint "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_details_on_order_id"
@@ -88,15 +88,12 @@ ActiveRecord::Schema.define(version: 2022_05_01_115323) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "order_id"
-    t.string "string"
-    t.datetime "order_date"
-    t.bigint "user_id", null: false
-    t.string "payment_id"
-    t.string "amount"
-    t.string "float"
+    t.decimal "total"
+    t.bigint "user_id"
+    t.bigint "coupon_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -108,8 +105,8 @@ ActiveRecord::Schema.define(version: 2022_05_01_115323) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "product_name"
-    t.string "quantity"
     t.uuid "uuid", default: -> { "uuid_generate_v4()" }
+    t.integer "quantity"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -131,6 +128,9 @@ ActiveRecord::Schema.define(version: 2022_05_01_115323) do
   add_foreign_key "carts", "coupons"
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "products"
+  add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
 end

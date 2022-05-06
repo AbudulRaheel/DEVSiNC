@@ -1,0 +1,45 @@
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card text-black">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <% if item.images.attached? %>
+                <%= image_tag item.images.first, class:'w-100'%>
+              <% else %>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p> NO IMAGE</p>
+                <br>
+              <%end%>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="text-center">
+              <h5 class="card-title">
+              </h5>
+              <p class="text-muted mb-4"><b><%= item.product_name%></b></p>
+            </div>
+            <div>
+              <div class="d-flex justify-content-between">
+                <span>Quantity:</span><span><%= item.quantity.to_i <1 ? "Out of stock":item.quantity%></span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Price:</span><span><%= item.price %>$</span>
+              </div>
+            </div>
+            <p class="text-muted mb-4"> <b>Description:</b> <br>
+              <%= item.descriptio%></p>
+            <div class="d-flex justify-content-between total font-weight-bold mt-4">
+              <%=  button_to "View details", product_path(item) ,method: :get%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

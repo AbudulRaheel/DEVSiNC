@@ -1,11 +1,35 @@
-<h1>User Profile</h1>
-<div class="column">
-    <div class="card">
-   <%= image_tag(@user.photo) %>
-         <div class="container">
-                <h4>Name: <%= @user.full_name %></h4>
-                <h4>Email: <%= @user.email %></h4>
-                <h4>Phone: <%= @user.phone%></h4>
-      </div>   
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6 col-xl-4">
+    <h4>User Profile</h4>
+    <div class="card text-black">
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <% if @user.photo.attached? %>
+            <%= image_tag  @user.photo, class:'w-100'%>
+          <% else %>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p> NO IMAGE</p>
+            <br>
+          <%end%>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <span>Name:</span><span><%= @user.full_name%></span>
+        </div>
+        <div>
+          <div class="d-flex justify-content-between">
+            <span>Email:</span><span><%= @user.email%></span>
+          </div>
+          <div class="d-flex justify-content-between">
+            <span>Phone:</span><span><%= @user.phone%>$</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

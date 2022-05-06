@@ -1,0 +1,18 @@
+<tr>
+  <td class="align-middle">
+    <% if item.product.images.attached?%>
+      <%= image_tag item.product.images.first, style: "width:150px;"%>
+    <% else %>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <p> NO IMAGE</p>
+      <br>
+    <% end%>
+  </td>
+  <td class="align-middle"><%= item.product.product_name%></td>
+  <td class="align-middle"><%= item.quantity%></td>
+  <td class="align-middle">$ <%= item.product.price %></td>
+</tr>

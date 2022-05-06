@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# AddUseAnd
 class AddUseAnd < ActiveRecord::Migration[5.2]
   def change
     add_reference :cart_items, :user, foreign_key: true

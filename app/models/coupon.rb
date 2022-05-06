@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Coupon
 class Coupon < ApplicationRecord
   # validations
   validates :code, presence: true, uniqueness: true, length: { minimum: 4, maximum: 10 }, format: { with: /[0-9A-Z]/ }
