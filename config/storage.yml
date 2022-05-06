@@ -32,3 +32,12 @@ local:
 #   service: Mirror
 #   primary: local
 #   mirrors: [ amazon, google, microsoft ]
+
+
+
+cloudinary:
+  service: Cloudinary
+  cloud_name: "devecommerce"
+  api_key: "623245652578434"
+  api_secret: "N5DVpAALKFJHa8QraG6Ke9OOgic"
+

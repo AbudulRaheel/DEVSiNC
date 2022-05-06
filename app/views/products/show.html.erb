@@ -1,0 +1,92 @@
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="d-flex justify-content-between total font-weight-bold mt-4">
+      <span><%= link_to "Back", :back %></span>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card text-black">
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <% if @product.images.attached? %>
+                <%= image_tag @product.images.first, class:'w-100'%>
+              <% else %>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p> NO IMAGE</p>
+                <br>
+              <%end%>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="text-center">
+              <p class="text-muted mb-4"><b><%= @product.product_name%></b></p>
+            </div>
+            <div>
+              <div class="d-flex justify-content-between">
+                <span>Quantity:</span><span><%= @product.quantity%></span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Price:</span><span><%= @product.price%>$</span>
+              </div>
+            </div>
+            <p class="text-muted mb-4">Description: <%= @product.descriptio%></p>
+            <% if policy(@product).update? %>
+              <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                <%=  button_to "Edit", edit_product_path(@product) ,method: :get%>
+                <%=  button_to "Delete", product_path(@product),method: :delete%>
+              </div>
+            <% else %>
+              <% if user_signed_in? %>
+                <%= button_to "Add To Cart", { action: "create", :controller=>"cart_products" },
+               remote: true,
+           params: {product_id: @product.id, quantity:1}
+        %>
+              <% else %>
+                <%= button_to "Add To Cart", { action: "create", :controller=>"logout_carts" },
+        remote: true,
+        params: {id: @product.id, quantity:1} %>
+              <%end%>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<div  style="margin-left: 200px">
+  <% unless policy(@product).update?   %>
+    <%if(user_signed_in?)%>
+      <%= render partial: "comments/comment_form" ,comment: @comment, locals:{action_url:product_comments_path(@product),button_text: "Post Comment",action_method: :post} %>
+    <% end %>
+  <% end %>
+  <br>
+  <h5> Comments </h5>
+  <br>
+  <br>
+  <div id="comment_pane">
+    <%if @comments != nil%>
+      <% for comment in @comments%>
+        <li class="media">
+          <%= image_tag comment.user.photo, style: "width: 100px;"%>
+          <div class="media-body">
+            <strong class="text-success"><%=comment.user.full_name%></strong>
+            <p>
+              <%=comment.comment_text%>
+            </p>
+            <% if policy(comment).update? %>
+              <%= link_to "Edit", edit_comment_path(comment), method: :get%>
+              <%= link_to "Delete", comment_path(comment), method: :delete%>
+            <% end %>
+          </div>
+        </li>
+      <%end%>
+    <%else%>
+      <p> No comments to display</p>
+    <%end%>
+  </div>
+</div>

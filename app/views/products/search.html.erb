@@ -1,0 +1,13 @@
+<div class="container pt-5">
+  <h4> Search Result: <%= @result%> </h4>
+  <br>
+  <div class="container">
+    <% if !@products.blank? %>
+      <% @products.each do | product | %>
+        <%= render partial: "product" , :locals => {:item => product} %>
+      <%end%>
+    <% else %>
+      <h6> No product matches the search query</h6>
+    <% end %>
+  </div>
+</div>

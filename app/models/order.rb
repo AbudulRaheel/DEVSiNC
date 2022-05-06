@@ -1,5 +1,9 @@
-class Order < ApplicationRecord
+# frozen_string_literal: true
 
-belongs_to :users
-has_one :coupons
+# Order class
+class Order < ApplicationRecord
+  has_many :products, through: :order_details
+  has_many :order_details, dependent: :destroy
+  belongs_to :user
+  belongs_to :coupon, optional: true
 end

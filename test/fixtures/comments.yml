@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  comment_id: MyString
-  produc_id: MyString
-  date: 2022-04-19 21:46:46
+  comment_text: MyText
   user_id: MyString
+  references: MyString
+  product_id: MyString
+  references: MyString
 
 two:
-  comment_id: MyString
-  produc_id: MyString
-  date: 2022-04-19 21:46:46
+  comment_text: MyText
   user_id: MyString
+  references: MyString
+  product_id: MyString
+  references: MyString

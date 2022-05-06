@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title> Home</title>
+  </head>
+  <body>
+    <div class='text-center'>
+      <h4>Products</h4>
+      <div class="row px-xl-5 pb-3">
+        <div class='col'>
+          <% if (!@products.blank?) %>
+            <% for item in @products %>
+              <%= render partial: "product" , :locals => {:item => item} %>
+            <% end %>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

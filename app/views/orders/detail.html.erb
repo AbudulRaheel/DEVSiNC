@@ -1,0 +1,19 @@
+<div class="container-fluid pt-5">
+  <div class="row px-xl-5">
+    <div class="table-responsive mb-5">
+      <table class="table table-bordered text-center ">
+        <thead >
+          <tr>
+            <th>Product</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody class="align-middle">
+          <%= render partial: "detail", collection: @order_items_list , as: :item %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
