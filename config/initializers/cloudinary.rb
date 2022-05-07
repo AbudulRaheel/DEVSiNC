@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Cloudinary.config do |config|
   config.cloud_name = 'devecommerce'
   config.api_key = '623245652578434'

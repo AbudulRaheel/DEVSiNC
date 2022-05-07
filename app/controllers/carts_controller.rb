@@ -3,14 +3,8 @@
 # CartsController
 class CartsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
+  before_action :load_cart_data, only: %i[index edit update destroy coupon]
   include CartsHelper
-
-  def index
-    @cart_items = CartProduct.includes(:product).where(cart_id: current_user.cart.id)
-    @cart_sub_total = CartsHelper.calculate_cart_sub_total(current_user)
-
-    @coupon = current_user.cart.coupon
-  end
 
   def update
     respond_to do |format|
@@ -22,12 +16,8 @@ class CartsController < ApplicationController
     end
   end
 
-  def show; end
-
   def coupon
-    @coupon = Coupon.find_by(code: params[:coupon])
     if @coupon && @coupon.expiry_date > Time.zone.today
-      @cart_sub_total = CartsHelper.calculate_cart_sub_total(current_user)
       process_coupon @coupon
     else
       render js: "alert('No such Coupon exist')"
@@ -48,5 +38,11 @@ class CartsController < ApplicationController
 
   def cart_params
     params.require(:cart).permit(:sub_total)
+  end
+
+  def load_cart_data
+    @cart_items = CartProduct.includes(:product).where(cart_id: current_user.cart.id)
+    @cart_sub_total = CartsHelper.calculate_cart_sub_total(current_user)
+    @coupon = current_user.cart.coupon
   end
 end

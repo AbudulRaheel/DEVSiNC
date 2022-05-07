@@ -2,17 +2,11 @@
 
 # CommentsController
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[edit update destory]
-
-  def index; end
+  before_action :set_comment, only: %i[edit update destroy]
 
   def new
     @comment = Comment.new
   end
-
-  def show; end
-
-  def edit; end
 
   def update
     respond_to do |format|
@@ -34,19 +28,17 @@ class CommentsController < ApplicationController
       if @comment.save
         format.js
       else
-        format.js { render js: 'alert("Error in saving comment\nIt should be atleast 5 in length");' }
+        format.js { render js: 'alert("Error in saving comment");' }
       end
     end
   end
 
   def destroy
-    @comment = Comment.find_by_id(params[:id])
-
     if @comment.destroy
 
-      redirect_to product_path(@comment.product)
+      redirect_to product_path(@comment.product), notice: 'Comment deleted.'
     else
-      redirect_to product_path(@comment.product), notice: 'Error!'
+      redirect_to product_path(@comment.product), notice: 'Error in deleting comment!'
 
     end
   end

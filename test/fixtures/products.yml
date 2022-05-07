@@ -2,12 +2,12 @@
 
 one:
   serial_no: MyString
-  descriptio: MyString
+  description: MyString
   price: MyString
   float: MyString
 
 two:
   serial_no: MyString
-  descriptio: MyString
+  description: MyString
   price: MyString
   float: MyString

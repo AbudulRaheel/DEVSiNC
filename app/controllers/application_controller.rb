@@ -2,11 +2,9 @@
 
 # ApplicationController
 class ApplicationController < ActionController::Base
-  # include Pundit::Authorization
   before_action :authenticate_user!
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   after_action :load_session_cart, if: :devise_controller?
 
   private
@@ -18,7 +16,6 @@ class ApplicationController < ActionController::Base
 
   def load_session_cart
     return unless !session[:cart].nil? && user_signed_in? && !session[:cart].empty?
-
     load_items_in_cart
     session[:cart].clear
   end

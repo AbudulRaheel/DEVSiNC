@@ -10,10 +10,12 @@ Rails.application.routes.draw do
   get 'detail', to: 'orders#detail'
   get 'search', to: 'products#search'
   post 'coupon', to: 'carts#coupon'
+
   resources :orders, only: %i[index]
   resources :products do
     resources :comments, shallow: true
   end
+  
   resources :carts, only: %i[index update]
   resources :cart_products, only: %i[create destroy edit update]
   resources :logout_carts
