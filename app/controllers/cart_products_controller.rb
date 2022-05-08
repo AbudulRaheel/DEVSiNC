@@ -20,17 +20,21 @@ class CartProductsController < ApplicationController
   end
 
   def destroy
-    render js: 'alert("Error in removing item from cart");' unless @cart_item.destroy
+    if @cart_item.destroy
+      redirect_to carts_path 
+    else
+      format.js { render js: 'alert("Error in removing item from cart");' }
+
+    end
+    
   end
 
-  def update
+  def update  
     respond_to do |format|
       if @cart_item.update(cart_product_params)
         format.js
       else
-        format.js do
-          render js: 'alert("Error in updating cart_item\nShould not be greater than product.);'
-        end
+        format.js { render js: 'alert("Error: Extreme quantity reached");' }
       end
     end
   end

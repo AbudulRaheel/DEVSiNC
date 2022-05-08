@@ -9,7 +9,9 @@
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <% if @product.images.attached? %>
-                <%= image_tag @product.images.first, class:'w-100'%>
+                <% @product.images.each do |img| %>
+                  <%= image_tag img, style: "width: 110px;margin:5px;"%>
+                <%end%>
               <% else %>
                 <br>
                 <br>
@@ -41,10 +43,11 @@
               </div>
             <% else %>
               <% if user_signed_in? %>
-                <%= button_to "Add To Cart", { action: "create", :controller=>"cart_products" },
+                <% if @product.quantity != 0 %>
+                  <%= button_to "Add To Cart", { action: "create", :controller=>"cart_products" },
                remote: true,
-           params: {product_id: @product.id, quantity:1}
-        %>
+           params: {product_id: @product.id, quantity:1} %>
+                <% end %>
               <% else %>
                 <%= button_to "Add To Cart", { action: "create", :controller=>"logout_carts" },
         remote: true,

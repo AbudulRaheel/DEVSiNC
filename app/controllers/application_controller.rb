@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 
   def load_session_cart
     return unless !session[:cart].nil? && user_signed_in? && !session[:cart].empty?
+
     load_items_in_cart
     session[:cart].clear
   end

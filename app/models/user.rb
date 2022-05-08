@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_one_attached :photo, dependent: :purge_later
 
+  validate :user_image_type
+
   # callbacks on after creation
   after_create :initilize_cart
 
@@ -19,5 +21,11 @@ class User < ApplicationRecord
 
   def initilize_cart
     Cart.create(user_id: id)
+  end
+
+  def user_image_type
+    errors.add(:photo, 'is missing!') unless photo.attached?
+    errors.add(:photo, ' only jpeg/png images are allowed.') unless photo.content_type.in?(%('image/jpeg image/png'))
+  
   end
 end

@@ -3,7 +3,7 @@
 # ProductsController
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[edit update destroy show]
-  before_action :authenticate_user, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action :product_authorization, only: %i[edit update destroy]
 
   def index

@@ -3,8 +3,11 @@
 # CartsController
 class CartsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :load_cart_data, only: %i[index edit update destroy coupon]
+  before_action :load_cart_data, only: %i[index edit update destroy]
+  before_action :load_coupon, only: %i[coupon]
   include CartsHelper
+
+ 
 
   def update
     respond_to do |format|
@@ -24,20 +27,25 @@ class CartsController < ApplicationController
     end
   end
 
+  private
+
   def process_coupon(coupon)
     respond_to do |format|
       if current_user.cart.update(coupon_id: coupon.id)
         format.js
+        redirect_to carts_path 
       else
         format.js { render js: 'alert("Invalid Coupon");' }
       end
     end
   end
 
-  private
-
   def cart_params
     params.require(:cart).permit(:sub_total)
+  end
+
+  def load_coupon
+    @coupon = Coupon.find_by(code: params[:coupon])
   end
 
   def load_cart_data

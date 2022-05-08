@@ -6,7 +6,9 @@
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <% if item.images.attached? %>
-                <%= image_tag item.images.first, class:'w-100'%>
+                <% item.images.each do |img| %>
+                  <%= image_tag img, style: "width: 110px;margin:5px;"%>
+                <%end%>
               <% else %>
                 <br>
                 <br>

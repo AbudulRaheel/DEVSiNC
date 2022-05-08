@@ -9,9 +9,9 @@ class Cart < ApplicationRecord
   has_many :products, through: :cart_products
 
   # coupon validation
-  validate :validate_coupon
+  # validate :validate_coupon
 
-  def validate_coupon
-    errors.add(:code, 'Invalid coupon') if coupon && coupon.expiry_date >= Time.zone.today
-  end
+  # def validate_coupon
+  #   errors.add(:code, 'Invalid couponzzz') if coupon.present? && coupon.expiry_date >= Time.zone.today
+  # end
 end
