@@ -34,7 +34,7 @@
   </div>
   <div class="field">
     <%= f.label :Photo %><br />
-    <%= f.file_field :photo,required: true%>
+    <%= f.file_field :images,  accept: "image/png, image/jpg, image/jpeg" %>
   </div>
   <div class="actions">
     <%= f.submit "Update" %>
