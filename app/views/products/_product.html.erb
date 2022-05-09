@@ -6,7 +6,9 @@
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <% if item.images.attached? %>
-                <%= image_tag item.images.first, class:'w-100'%>
+                <% item.images.each do |img| %>
+                  <%= image_tag img, style: "width: 110px;margin:5px;"%>
+                <%end%>
               <% else %>
                 <br>
                 <br>
@@ -33,7 +35,7 @@
               </div>
             </div>
             <p class="text-muted mb-4"> <b>Description:</b> <br>
-              <%= item.descriptio%></p>
+              <%= item.description%></p>
             <div class="d-flex justify-content-between total font-weight-bold mt-4">
               <%=  button_to "View details", product_path(item) ,method: :get%>
             </div>

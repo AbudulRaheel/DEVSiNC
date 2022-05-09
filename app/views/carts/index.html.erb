@@ -43,7 +43,7 @@
               <dl class="dlist-align">
                 <dt>Total price:</dt>
                 <dd class="text-right ml-3">
-                  <h6 class="font-weight-medium" id="cart-sub-total">  <%=  @cart_sub_total %>$</h6>
+                  <h6 class="font-weight-medium" id="cart-sub-total"><%=  @cart_sub_total %> <span>$</span></h6>
                 </dd>
               </dl>
               <dl class="dlist-align">
@@ -54,8 +54,6 @@
               </dl>
               <hr>
               <%= button_to "Proceed To Checkout", checkout_index_path, class:"btn btn-out btn-primary btn-square btn-main",  remote: true %>
-              <a href="#" class="btn btn-out btn-success btn-square btn-main mt-2"
-                            data-abc="true">Continue Shopping</a>
             </div>
           </div>
         </aside>

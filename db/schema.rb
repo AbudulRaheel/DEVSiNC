@@ -12,9 +12,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_502_102_943) do
+ActiveRecord::Schema.define(version: 20_220_508_164_619) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension 'pg_trgm'
   enable_extension 'pgcrypto'
   enable_extension 'plpgsql'
   enable_extension 'uuid-ossp'
@@ -62,7 +61,7 @@ ActiveRecord::Schema.define(version: 20_220_502_102_943) do
   end
 
   create_table 'comments', force: :cascade do |t|
-    t.string 'comment_text'
+    t.text 'comment_text', null: false
     t.bigint 'product_id', null: false
     t.bigint 'user_id', null: false
     t.datetime 'created_at', null: false
@@ -77,6 +76,7 @@ ActiveRecord::Schema.define(version: 20_220_502_102_943) do
     t.date 'expiry_date', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.index ['code'], name: 'index_coupons_on_code', unique: true
   end
 
   create_table 'order_details', force: :cascade do |t|
@@ -100,15 +100,14 @@ ActiveRecord::Schema.define(version: 20_220_502_102_943) do
   end
 
   create_table 'products', force: :cascade do |t|
-    t.string 'descriptio'
-    t.string 'price'
-    t.string 'float'
+    t.string 'product_name', null: false
+    t.string 'description', null: false
+    t.float 'price', null: false
+    t.integer 'quantity', null: false
     t.bigint 'user_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.string 'product_name'
     t.uuid 'uuid', default: -> { 'uuid_generate_v4()' }
-    t.integer 'quantity'
     t.index ['user_id'], name: 'index_products_on_user_id'
   end
 
@@ -120,8 +119,8 @@ ActiveRecord::Schema.define(version: 20_220_502_102_943) do
     t.datetime 'remember_created_at'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.string 'full_name'
-    t.string 'phone'
+    t.string 'full_name', null: false
+    t.string 'phone', null: false
     t.index ['email'], name: 'index_users_on_email', unique: true
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end

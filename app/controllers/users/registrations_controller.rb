@@ -5,36 +5,23 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :configure_sign_up_params, only: [:create]
     before_action :configure_account_update_params, only: [:update]
-
-    # def after_sign_up_path_for(_resource)
-    #   '/an/example/path' # Or :prefix_to_your_route
-    # end
+    before_action :user_params, only: [:update]
 
     # GET /resource/sign_up
     def index
       @user = Current.User
     end
 
-    # POST /resource
-
-    # GET /resource/edit
-
     # PUT /resource
     def update
-      super
-      render :edit unless @user.update(user_params)
+      respond_to do |format|
+        if @user.update(user_params)
+          format.html { redirect_to user_path(current_user.id), notice: 'Profile was successfully updated.' }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+      end
     end
-
-    # DELETE /resource
-
-    # GET /resource/cancel
-    # Forces the session data which is usually expired after sign
-    # in to be expired now. This is useful if the user wants to
-    # cancel oauth signing in/up in the middle of the process,
-    # removing all OAuth session data.
-    # def cancel
-    #   super
-    # end
 
     protected
 

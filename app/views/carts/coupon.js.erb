@@ -1,6 +1,4 @@
 $(document).ready(function(){
 $("#coupon-div").replaceWith(" <%= j render partial: "coupon", coupon: @coupon %> ");
-$(".cart-total-with-discount").val( "$ <%= @cart_sub_total - (@cart_sub_total * @coupon.discount).to_i %>")
-$("#cart-total-partial").replaceWith(" <%= j render partial: "carts/cart_total", locals: {coupon: @coupon, cart_sub_total: @cart_sub_total }  %>");
-$(".coupon-field").val('');
-});
+
+

@@ -2,7 +2,7 @@
 <div class="text-center">
   <%= form_with(model: product, local: true) do |f| %>
     <% if product.errors.any? %>
-      <div id="error_explanation">
+      <div>
         <h2><%= pluralize(product.errors.count, "error") %> Errors:</h2>
         <ul>
           <% product.errors.full_messages.each do |message| %>
@@ -13,23 +13,23 @@
     <% end %>
     <div class="field">
       <%= f.label :Name %><br />
-      <%= f.text_field :product_name%>
+      <%= f.text_field :product_name,required: true%>
     </div>
     <div class="field">
       <%= f.label :Description %><br />
-      <%= f.text_field :descriptio, autofocus: true %>
+      <%= f.text_field :description, autofocus: true,required: true %>
     </div>
     <div class="field">
       <%= f.label :Price%><br />
-      <%= f.text_field :price, autofocus: true %>
+      <%= f.text_field :price, autofocus: true,required: true %>
     </div>
     <div class="field">
       <%= f.label :Quantity%><br />
-      <%= f.number_field :quantity, value: product.quantity || 1,  autofocus: true %>
+      <%= f.number_field :quantity, value: product.quantity || 1,  autofocus: true,required: true %>
     </div>
     <%if(action !="new")%>
       <div class="field">
-        <%= f.label :Images%><br />
+        <%= f.label :Images,required: true, accept: "image/png, image/jpg, image/jpeg"%><br />
       </div>
       <div class="row d-flex justify-content-center mt-3">
         <% if product.images.attached?%>

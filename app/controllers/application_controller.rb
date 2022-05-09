@@ -2,11 +2,9 @@
 
 # ApplicationController
 class ApplicationController < ActionController::Base
-  # include Pundit::Authorization
   before_action :authenticate_user!
   include Pundit::Authorization
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   after_action :load_session_cart, if: :devise_controller?
 
   private
