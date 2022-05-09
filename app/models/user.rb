@@ -25,7 +25,6 @@ class User < ApplicationRecord
 
   def user_image_type
     errors.add(:photo, 'is missing!') unless photo.attached?
-    errors.add(:photo, ' only jpeg/png images are allowed.') unless photo.content_type.in?(%('image/jpeg image/png'))
-  
+    # errors.add(:photo, ' only jpeg/png images are allowed.') unless photo.content_type.in?(%('image/jpeg image/png'))
   end
 end

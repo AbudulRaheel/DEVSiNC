@@ -3,7 +3,7 @@
 # ProductsController
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[edit update destroy show]
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show search]
   before_action :product_authorization, only: %i[edit update destroy]
 
   def index
@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     @product.user = current_user
     respond_to do |format|
       if @product.save
-        format.html { redirect_to myproducts_path(@product), notice: 'Product was successfully created.' }
+        format.html { redirect_to myproducts_products_path, notice: 'Product was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to myproducts_path, notice: 'Product was successfully updated.' }
+        format.html { redirect_to myproducts_products_path, notice: 'Product was successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -43,7 +43,7 @@ class ProductsController < ApplicationController
   def destroy
     respond_to do |format|
       if @product.destroy
-        format.html { redirect_to myproducts_path, notice: 'Product was successfully destroyed.' }
+        format.html { redirect_to myproducts_products_path, notice: 'Product was successfully destroyed.' }
       else
         flash.alert = 'Error in deleting product'
       end
@@ -52,7 +52,7 @@ class ProductsController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @product.comments
+    @comments = Comment.includes(:product).where(product_id: @product.id)
   end
 
   def search

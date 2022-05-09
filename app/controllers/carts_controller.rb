@@ -7,8 +7,6 @@ class CartsController < ApplicationController
   before_action :load_coupon, only: %i[coupon]
   include CartsHelper
 
- 
-
   def update
     respond_to do |format|
       if current_user.cart.update(cart_params)
@@ -33,7 +31,7 @@ class CartsController < ApplicationController
     respond_to do |format|
       if current_user.cart.update(coupon_id: coupon.id)
         format.js
-        redirect_to carts_path 
+        redirect_to carts_path
       else
         format.js { render js: 'alert("Invalid Coupon");' }
       end
@@ -49,7 +47,7 @@ class CartsController < ApplicationController
   end
 
   def load_cart_data
-    @cart_items = CartProduct.includes(:product).where(cart_id: current_user.cart.id)
+    @cart_items = current_user.cart.cart_products
     @cart_sub_total = CartsHelper.calculate_cart_sub_total(current_user)
     @coupon = current_user.cart.coupon
   end

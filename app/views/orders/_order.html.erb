@@ -3,6 +3,6 @@
   <td class="align-middle">$ <%= order.total%></td>
   <td class="align-middle"><%= order.created_at.strftime("%d/%m/%Y") %></td>
   <td class="align-middle">
-    <%= link_to 'View', detail_path(id: order.id), method: :get %>
+    <%= link_to 'View', order_detail_path(order_id: order.id), method: :get %>
   </td>
 </tr>

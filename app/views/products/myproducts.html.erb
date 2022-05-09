@@ -26,7 +26,6 @@
                   <%= button_to "Update", edit_product_path(item) ,method: :get %>
                   <%=  button_to "Remove", product_path(item) ,method: :delete %>
                   <%=  button_to "View details", product_path(item),params:{id: item.id},method: :get%>
-                  <%# viewproducts_path,params:{id: item.id} %>
                 </div>
               </td>
             </tr>

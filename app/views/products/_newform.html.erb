@@ -29,7 +29,7 @@
     </div>
     <%if(action !="new")%>
       <div class="field">
-        <%= f.label :Images,required: true%><br />
+        <%= f.label :Images,required: true, accept: "image/png, image/jpg, image/jpeg"%><br />
       </div>
       <div class="row d-flex justify-content-center mt-3">
         <% if product.images.attached?%>

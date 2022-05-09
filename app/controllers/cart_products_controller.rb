@@ -21,15 +21,14 @@ class CartProductsController < ApplicationController
 
   def destroy
     if @cart_item.destroy
-      redirect_to carts_path 
+      redirect_to carts_path
     else
       format.js { render js: 'alert("Error in removing item from cart");' }
 
     end
-    
   end
 
-  def update  
+  def update
     respond_to do |format|
       if @cart_item.update(cart_product_params)
         format.js
@@ -51,6 +50,6 @@ class CartProductsController < ApplicationController
   end
 
   def cart_product_params
-    params.permit(:product_id, :quantity)
+    params.require(:cart_products).permit(:product_id, :quantity)
   end
 end

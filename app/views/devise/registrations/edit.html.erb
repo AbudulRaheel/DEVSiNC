@@ -7,7 +7,7 @@
   </div>
   <div class="field">
     <%= f.label :phone%><br />
-    <%= f.text_field  :phone, autofocus: true,required: true %>
+    <%= f.text_field  :phone,autofocus: true,required: true %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
@@ -34,7 +34,7 @@
   </div>
   <div class="field">
     <%= f.label :Photo %><br />
-    <%= f.file_field :images,  accept: "image/png, image/jpg, image/jpeg" %>
+    <%= f.file_field :photo,required: true,  accept: "image/png, image/jpg, image/jpeg" %>
   </div>
   <div class="actions">
     <%= f.submit "Update" %>
